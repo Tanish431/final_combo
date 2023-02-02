@@ -48,12 +48,13 @@ function gres(){
                 max--
             }
         }
-        var min_space = row.cells[4]
+        var min_space = row.cells[6]
         min_space.innerHTML=min
-        var max_space = row.cells[5]
+        var max_space = row.cells[7]
         max_space.innerHTML=max
-        var combo_space = row.cells[6]
-        var extra_space = row.cells[7]
+        var combo_space = row.cells[8]
+        var extra_space = row.cells[4]
+        var total_space = row.cells[5]
         let min_c=min
         let min_2=0
         let NOP_val_2=0
@@ -97,9 +98,11 @@ function gres(){
             let exult=Math.min(...m)
             extra_space.innerHTML = exult
             combo_space.innerHTML = "None"
+            total_space.innerHTML = exult+NOP_val
         }
         if(c.length!=0){
             extra_space.innerHTML = 0
+            total_space.innerHTML = NOP_val
         }
         i++
     }
