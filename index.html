@@ -72,19 +72,21 @@ excel_file.addEventListener('change', (event) => {
         var table = document.getElementById("myTable");
         var rowCount = table.rows.length;
         var colCount = table.rows[0].cells.length;
-        for(var n=0; n<4;n++){
+        for(var n=0; n<5;n++){
         for (var i = 0; i < rowCount; i++) {
             var newCell = table.rows[i].insertCell(colCount);
         }}
         var rowIndex = 0;
-        var colIndex_mi = 4;
-        var colIndex_ma = 5;
-        var colIndex_co = 6;
-        var colIndex_ex = 7;
+        var colIndex_ex = 4;
+        var colIndex_to = 5;
+        var colIndex_mi = 6;
+        var colIndex_ma = 7;
+        var colIndex_co = 8;
         table.rows[rowIndex].cells[colIndex_ma].innerHTML="<b>MAX.</b>"
         table.rows[rowIndex].cells[colIndex_mi].innerHTML="<b>MIN.</b>"
         table.rows[rowIndex].cells[colIndex_co].innerHTML="<b>COMBO.</b>"
         table.rows[rowIndex].cells[colIndex_ex].innerHTML="<b>EXTRA.</b>"
+        table.rows[rowIndex].cells[colIndex_to].innerHTML="<b>TOTAL.</b>"
     }
     document.getElementById("G_R").style.display = "block";
     document.getElementById("erase").style.display = "block";
@@ -94,6 +96,14 @@ excel_file.addEventListener('change', (event) => {
 <script src="./script.js"></script>
 <script>
     function exportTableToExcel(tableID, filename = ''){
+        
+    var tbl = document.getElementById('myTable'), 
+        lastCol = tbl.rows[0].cells.length - 1,   
+        i, j;
+        for (i = 0; i < tbl.rows.length; i++) {
+        for (j = lastCol; j > 7; j--) {
+            tbl.rows[i].deleteCell(j);
+        }}
 var downloadLink;
 var dataType = 'application/vnd.ms-excel';
 var tableSelect = document.getElementById(tableID);
