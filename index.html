@@ -55,8 +55,8 @@ excel_file.addEventListener('change', (event) => {
                 for(var cell = 0; cell < sheet_data[row].length; cell++)
                 {
                     if(row == 0)
-                    {
-                        table_output += '<th>'+sheet_data[row][cell]+'</th>';
+                    { 
+                        table_output += '<th style="text-align: center">'+sheet_data[row][cell]+'</th>';
                     }
                     else
                     {
@@ -87,16 +87,16 @@ excel_file.addEventListener('change', (event) => {
         var colIndex_mi = 11;
         var colIndex_ma = 12;
         var colIndex_co = 13; 
-         table.rows[rowIndex].cells[colIndex_ma].innerHTML="<b>MAX.</b>"
-        table.rows[rowIndex].cells[colIndex_mi].innerHTML="<b>MIN.</b>"
-        table.rows[rowIndex].cells[colIndex_co].innerHTML="<b>COMBO.</b>"
-        table.rows[rowIndex].cells[colIndex_ex].innerHTML="<b>EXTRA.</b>" 
-        table.rows[rowIndex].cells[colIndex_ppw].innerHTML="<b>PPW</b>"
-         table.rows[rowIndex].cells[colIndex_weight].innerHTML="<b>WEIGHT</b>"
-        table.rows[rowIndex].cells[colIndex_exw].innerHTML="<b>EXTRA WEIGHT</b>"
-        table.rows[rowIndex].cells[colIndex_to].innerHTML="<b>TOTAL \n (+suggestion)</b>"
-        table.rows[rowIndex].cells[colIndex_tow].innerHTML="<b>TOTAL WEIGHT</b>"
-        table.rows[rowIndex].cells[colIndex_rem].innerHTML="<b>REMARK </b>" 
+        table.rows[rowIndex].cells[colIndex_ma].innerHTML="<p style='text-align: center'><b style='text-align: center'>MAX.</b></p>"
+        table.rows[rowIndex].cells[colIndex_mi].innerHTML="<p style='text-align: center'><b>MIN.</b></p>"
+        table.rows[rowIndex].cells[colIndex_co].innerHTML="<p style='text-align: center'><b>COMBO.</b></p>"
+        table.rows[rowIndex].cells[colIndex_ex].innerHTML="<p style='text-align: center'><b>EXTRA NOP</b></p>" 
+        table.rows[rowIndex].cells[colIndex_ppw].innerHTML="<p style='text-align: center'><b>PPW (MT)</b></p>"
+        table.rows[rowIndex].cells[colIndex_weight].innerHTML="<p style='text-align: center'><b>TOTAL WEIGHT (MT)</b></p>"
+        table.rows[rowIndex].cells[colIndex_exw].innerHTML="<p style='text-align: center'><b>EXTRA WEIGHT (MT)</b></p>"
+        table.rows[rowIndex].cells[colIndex_to].innerHTML="<p style='text-align: center'><b>SUGGESTED NOP</b></p>"
+        table.rows[rowIndex].cells[colIndex_tow].innerHTML="<p style='text-align: center'><b>SUGGESTED WEIGHT (MT)</b></p>"
+        table.rows[rowIndex].cells[colIndex_rem].innerHTML="<p style='text-align: center'><b>REMARKS </b></p>" 
     }
     document.getElementById("G_R").style.display = "block";
     document.getElementById("erase").style.display = "block";
