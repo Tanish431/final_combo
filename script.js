@@ -1,6 +1,6 @@
 function gres(){
     var table = document.getElementById("myTable");
-    var rowCount = table.rows.length;
+    var rowCount = table.rows.length 
     var i=1
     while(i<rowCount){
         var rowIndex = i
@@ -9,8 +9,10 @@ function gres(){
         var width_val = Number(row.cells[1].textContent)
         var length_val = Number(row.cells[2].textContent)
         var NOP_val = Number(row.cells[3].textContent)
+        let s=[]
         if(width_val<1800){
             width_val=width_val*2
+            s.push("o")
         }
         if(width_val>1200 && width_val<2550){
             width_val=width_val+100
@@ -27,6 +29,10 @@ function gres(){
         }
         var ppw = (thick_val*width_val*length_val*7.85*(10**-9))
         let n = Number(((ppw)*1.1).toFixed(3))
+        var ppw_space = row.cells[4]
+        ppw_space.innerHTML = n
+        var wgt_space = row.cells[5]
+        wgt_space.innerHTML = n*NOP_val
         let min = 0
         if(Math.floor(38000/length_val)*length_val<38001){
             if(Math.floor(38000/length_val)*(n)<6.9){
@@ -48,13 +54,16 @@ function gres(){
                 max--
             }
         }
-        var min_space = row.cells[6]
+        var min_space = row.cells[11]
         min_space.innerHTML=min
-        var max_space = row.cells[7]
+        var max_space = row.cells[12]
         max_space.innerHTML=max
-        var combo_space = row.cells[8]
-        var extra_space = row.cells[4]
-        var total_space = row.cells[5]
+        var combo_space = row.cells[13]
+        var extra_space = row.cells[6]
+        var extraw_space = row.cells[7]
+        var total_space = row.cells[8]
+        var totalw_space = row.cells[9]
+        var rem_space = row.cells[10]
         let min_c=min
         let min_2=0
         let NOP_val_2=0
@@ -72,7 +81,7 @@ function gres(){
         }
         while(a[0]<=max){
             for (const item of a) {
-                NOP_val_2 += item;
+                NOP_val_2 += item 
             }
             if(a[a.length - 1]>max){
                 a.pop()
@@ -94,15 +103,25 @@ function gres(){
             NOP_val_2=0
             dif=0
         }
+        let exult=Math.min(...m)
         if(c.length==0){
-            let exult=Math.min(...m)
+            extraw_space.innerHTML = (exult*n).toFixed(3)
             extra_space.innerHTML = exult
             combo_space.innerHTML = "None"
             total_space.innerHTML = exult+NOP_val
+            totalw_space.innerHTML = (exult+NOP_val)*n
+            rem_space.innerHTML = "Extra Required"
         }
         if(c.length!=0){
             extra_space.innerHTML = 0
             total_space.innerHTML = NOP_val
+            extraw_space.innerHTML = 0
+            totalw_space.innerHTML = NOP_val*n
+        }
+        if(s.length!=0){
+            rem_space.innerHTML = "OK with Slit"
+        }else if(s.length==0 && c.length!=0){
+            rem_space.innerHTML = "OK"
         }
         i++
     }
