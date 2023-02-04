@@ -51,7 +51,7 @@ excel_file.addEventListener('change', (event) => {
             var table_output = '<table class="table table-striped table-bordered" id="myTable">';
             for(var row = 0; row < sheet_data.length; row++)
             {
-                table_output += '<tr>';
+                table_output += '<tr style="text-align: center">';
                 for(var cell = 0; cell < sheet_data[row].length; cell++)
                 {
                     if(row == 0)
