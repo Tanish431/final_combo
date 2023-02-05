@@ -109,7 +109,7 @@ function gres(){
             extra_space.innerHTML = exult
             combo_space.innerHTML = "None"
             total_space.innerHTML = exult+NOP_val
-            totalw_space.innerHTML = (exult+NOP_val)*n
+            totalw_space.innerHTML = ((exult+NOP_val)*n).toFixed(3)
             rem_space.innerHTML = "Extra Required"
         }
         if(c.length!=0){
@@ -131,3 +131,4 @@ var button = document.getElementById("downloadButton");
 function erase(){
     window.location.reload()
 }
+
