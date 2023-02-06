@@ -33,7 +33,7 @@ function gres(){
         var ppw_space = row.cells[4]
         ppw_space.innerHTML = n
         var wgt_space = row.cells[5]
-        wgt_space.innerHTML = n*NOP_val
+        wgt_space.innerHTML = (n*NOP_val).toFixed(3)
         let min = 0
         if(Math.floor(38000/length_val)*length_val<38001){
             if(Math.floor(38000/length_val)*(n)<6.9){
@@ -65,17 +65,11 @@ function gres(){
         var total_space = row.cells[8]
         var totalw_space = row.cells[9]
         var rem_space = row.cells[10]
-        let min_c=min
         let min_2=0
         let NOP_val_2=0
         let a=[]
-        let b=[]
         let m=[]
         let c=[]
-        while(min_c<=max){
-            b.push(min_c)
-            min_c++
-        }
         while(min_2<NOP_val){
             a.push(min)
             min_2+=min 
@@ -105,25 +99,6 @@ function gres(){
             dif=0
         }
         let exult=Math.min(...m)
-        if(c.length==0){
-            extraw_space.innerHTML = (exult*n).toFixed(3)
-            extra_space.innerHTML = exult
-            combo_space.innerHTML = "None"
-            total_space.innerHTML = exult+NOP_val
-            totalw_space.innerHTML = ((exult+NOP_val)*n).toFixed(3)
-            rem_space.innerHTML = "Extra Required"
-        }
-        if(c.length!=0){
-            extra_space.innerHTML = 0
-            total_space.innerHTML = NOP_val
-            extraw_space.innerHTML = 0
-            totalw_space.innerHTML = NOP_val*n
-        }
-        if(s.length!=0){
-            rem_space.innerHTML = "OK with Slit"
-        }else if(s.length==0 && c.length!=0){
-            rem_space.innerHTML = "OK"
-        }
         if(n>=17.2){
             t.push("p")
             wgt_space.innerHTML="-"
@@ -135,6 +110,52 @@ function gres(){
             max_space.innerHTML="-"
             rem_space.innerHTML="Not Possible"
         }
+        if(c.length==0){
+            extraw_space.innerHTML = (exult*n).toFixed(3)
+            extra_space.innerHTML = exult
+            //combo_space.innerHTML = "None"
+            total_space.innerHTML = exult+NOP_val
+            totalw_space.innerHTML = ((exult+NOP_val)*n).toFixed(3)
+            rem_space.innerHTML = "Extra Required"
+            a = []
+            let NOP_val_3 = Number(exult+NOP_val)
+            let NOP_val_4 = 0
+            min_2=0
+            while(min_2<NOP_val_3){
+                a.push(min)
+                min_2+=min
+            }
+            while(a[0]<=max){
+                for (const item of a) {
+                    NOP_val_4 += item 
+                }
+                if(a[a.length - 1]>max){
+                    a.pop()
+                    a[a.length - 1]++
+                }
+                else if (NOP_val_4==NOP_val_3){
+                    combo_space.innerHTML=a + 
+                    a.pop()
+                    a[a.length - 1]++
+                }else if(NOP_val_4<NOP_val_3){
+                    a.push(a[a.length - 1])
+                }else if(NOP_val_2>NOP_val){
+                    a.pop()
+                    a[a.length - 1]++
+                }
+            }
+        }
+        if(c.length!=0){
+            extra_space.innerHTML = "-"
+            total_space.innerHTML = NOP_val
+            extraw_space.innerHTML = "-"
+            totalw_space.innerHTML = (NOP_val*n).toFixed(3)
+        }
+        if(s.length!=0){
+            rem_space.innerHTML = "OK with Slit"
+        }else if(s.length==0 && c.length!=0){
+            rem_space.innerHTML = "OK"
+        }
         i++
     }
 }
@@ -143,3 +164,4 @@ var button = document.getElementById("downloadButton");
 function erase(){
     window.location.reload()
 }
+
