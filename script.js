@@ -10,6 +10,7 @@ function gres(){
         var length_val = Number(row.cells[2].textContent)
         var NOP_val = Number(row.cells[3].textContent)
         let s=[]
+        let t=[]
         if(width_val<1800){
             width_val=width_val*2
             s.push("o")
@@ -104,6 +105,17 @@ function gres(){
             dif=0
         }
         let exult=Math.min(...m)
+        if(n>=17.2){
+            t.push("p")
+            wgt_space.innerHTML="-"
+            extra_space.innerHTML="-"
+            extraw_space.innerHTML="-"
+            totalw_space.innerHTML="-"
+            total_space.innerHTML="-"
+            min_space.innerHTML="-"
+            max_space.innerHTML="-"
+            rem_space.innerHTML="Not Possible"
+        }
         if(c.length==0){
             extraw_space.innerHTML = (exult*n).toFixed(3)
             extra_space.innerHTML = exult
@@ -131,4 +143,3 @@ var button = document.getElementById("downloadButton");
 function erase(){
     window.location.reload()
 }
-
