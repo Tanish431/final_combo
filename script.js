@@ -158,10 +158,11 @@ function gres(){
         }
         i++
     }
+    //var table =document.getElementById("myTable")
+    //table.setAttribute("style", "margin: 0 auto;")
 }
 var table =document.getElementById("myTable")
 var button = document.getElementById("downloadButton");
 function erase(){
     window.location.reload()
 }
-
