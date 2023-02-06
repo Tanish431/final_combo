@@ -5,6 +5,12 @@
 	<title>Best Possible Combination</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style type="text/css">
+        table.center{
+            margin-left: auto;
+            margin-right: auto
+        }
+    </style>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     
 </head>
@@ -13,7 +19,7 @@
     	<h2 class="text-center mt-4 mb-4">Best Combo</h2>
     	<div class="card">
     		<div class="card-header"><b>Select Excel File</b></div>
-    		<div class="card-body">
+    		<div class="card-body" style="text-align:center;">
                 <input type="file" id="excel_file" />
     		</div>
     	</div>
@@ -87,16 +93,16 @@ excel_file.addEventListener('change', (event) => {
         var colIndex_mi = 11;
         var colIndex_ma = 12;
         var colIndex_co = 13; 
-        table.rows[rowIndex].cells[colIndex_ma].innerHTML="<p style='text-align: center'><b style='text-align: center'>MAX.</b></p>"
-        table.rows[rowIndex].cells[colIndex_mi].innerHTML="<p style='text-align: center'><b>MIN.</b></p>"
-        table.rows[rowIndex].cells[colIndex_co].innerHTML="<p style='text-align: center'><b>COMBO.</b></p>"
-        table.rows[rowIndex].cells[colIndex_ex].innerHTML="<p style='text-align: center'><b>EXTRA NOP</b></p>" 
-        table.rows[rowIndex].cells[colIndex_ppw].innerHTML="<p style='text-align: center'><b>PPW (MT)</b></p>"
-        table.rows[rowIndex].cells[colIndex_weight].innerHTML="<p style='text-align: center'><b>TOTAL WEIGHT (MT)</b></p>"
-        table.rows[rowIndex].cells[colIndex_exw].innerHTML="<p style='text-align: center'><b>EXTRA WEIGHT (MT)</b></p>"
-        table.rows[rowIndex].cells[colIndex_to].innerHTML="<p style='text-align: center'><b>SUGGESTED NOP</b></p>"
-        table.rows[rowIndex].cells[colIndex_tow].innerHTML="<p style='text-align: center'><b>SUGGESTED WEIGHT (MT)</b></p>"
-        table.rows[rowIndex].cells[colIndex_rem].innerHTML="<p style='text-align: center'><b>REMARKS </b></p>" 
+        table.rows[rowIndex].cells[colIndex_ma].innerHTML="<b>MAX.</b>"
+        table.rows[rowIndex].cells[colIndex_mi].innerHTML="<b>MIN.</b>"
+        table.rows[rowIndex].cells[colIndex_co].innerHTML="<b>COMBO.</b>"
+        table.rows[rowIndex].cells[colIndex_ex].innerHTML="<b>EXTRA NOP</b>" 
+        table.rows[rowIndex].cells[colIndex_ppw].innerHTML="<b>PPW (MT)</b>"
+        table.rows[rowIndex].cells[colIndex_weight].innerHTML="<b>TOTAL WEIGHT (MT)</b>"
+        table.rows[rowIndex].cells[colIndex_exw].innerHTML="<b>EXTRA WEIGHT (MT)</b>"
+        table.rows[rowIndex].cells[colIndex_to].innerHTML="<b>SUGGESTED NOP</b>"
+        table.rows[rowIndex].cells[colIndex_tow].innerHTML="<b>SUGGESTED WEIGHT (MT)</b>"
+        table.rows[rowIndex].cells[colIndex_rem].innerHTML="<b>REMARKS </b>" 
     }
     document.getElementById("G_R").style.display = "block";
     document.getElementById("erase").style.display = "block";
