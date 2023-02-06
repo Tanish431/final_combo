@@ -92,7 +92,7 @@ function gres(){
             }else if(NOP_val_2>NOP_val){
                 a.pop()
                 a[a.length - 1]++
-                dif=NOP_val_2-NOP_val
+                let dif=NOP_val_2-NOP_val
                 m.push(dif)
             }
             NOP_val_2=0
@@ -113,7 +113,6 @@ function gres(){
         if(c.length==0){
             extraw_space.innerHTML = (exult*n).toFixed(3)
             extra_space.innerHTML = exult
-            //combo_space.innerHTML = "None"
             total_space.innerHTML = exult+NOP_val
             totalw_space.innerHTML = ((exult+NOP_val)*n).toFixed(3)
             rem_space.innerHTML = "Extra Required"
@@ -125,7 +124,7 @@ function gres(){
                 a.push(min)
                 min_2+=min
             }
-            while(a[0]<=max){
+            /* while(a[0]<=max){
                 for (const item of a) {
                     NOP_val_4 += item 
                 }
@@ -134,7 +133,7 @@ function gres(){
                     a[a.length - 1]++
                 }
                 else if (NOP_val_4==NOP_val_3){
-                    combo_space.innerHTML=a + 
+                    combo_space.innerHTML=a
                     a.pop()
                     a[a.length - 1]++
                 }else if(NOP_val_4<NOP_val_3){
@@ -143,7 +142,8 @@ function gres(){
                     a.pop()
                     a[a.length - 1]++
                 }
-            }
+            } */
+            combo_space.innerHTML = a
         }
         if(c.length!=0){
             extra_space.innerHTML = "-"
