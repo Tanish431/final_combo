@@ -99,17 +99,6 @@ function gres(){
             dif=0
         }
         let exult=Math.min(...m)
-        if(n>=17.2){
-            t.push("p")
-            wgt_space.innerHTML="-"
-            extra_space.innerHTML="-"
-            extraw_space.innerHTML="-"
-            totalw_space.innerHTML="-"
-            total_space.innerHTML="-"
-            min_space.innerHTML="-"
-            max_space.innerHTML="-"
-            rem_space.innerHTML="Not Possible"
-        }
         if(c.length==0){
             extraw_space.innerHTML = (exult*n).toFixed(3)
             extra_space.innerHTML = exult
@@ -155,6 +144,17 @@ function gres(){
             rem_space.innerHTML = "OK with Slit"
         }else if(s.length==0 && c.length!=0){
             rem_space.innerHTML = "OK"
+        }
+        if(n>=17.2){
+            t.push("p")
+            wgt_space.innerHTML="-"
+            extra_space.innerHTML="-"
+            extraw_space.innerHTML="-"
+            totalw_space.innerHTML="-"
+            total_space.innerHTML="-"
+            min_space.innerHTML="-"
+            max_space.innerHTML="-"
+            rem_space.innerHTML="Not Possible"
         }
         i++
     }
