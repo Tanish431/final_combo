@@ -154,9 +154,11 @@ function gres() {
             extraw_space.innerHTML = "-"
             totalw_space.innerHTML = (NOP_val * ppw).toFixed(3)
         }
-        if (s.length != 0) {
+        if (s.length != 0 && c.length != 0) {
             rem_space.innerHTML = "OK with Slit"
-        } else if (s.length == 0 && c.length != 0) {
+        }if(s.length != 0 && c.length == 0){
+            rem_space.innerHTML = "Ext. with Slit"
+        }else if (s.length == 0 && c.length != 0) {
             rem_space.innerHTML = "OK"
         }
         if (ppw >= 17.2) {
@@ -171,12 +173,9 @@ function gres() {
             rem_space.innerHTML = "Not Possible"}
         i++
     }
-    //var table =document.getElementById("myTable")
-    //table.setAttribute("style", "margin: 0 auto;")
 }
 var table = document.getElementById("myTable")
 var button = document.getElementById("downloadButton");
 function erase() {
     window.location.reload()
 }
-
