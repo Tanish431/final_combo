@@ -10,6 +10,20 @@
             margin-left: auto;
             margin-right: auto
         }
+        .card-body{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #temp{
+            margin-left: -50px;
+        }
+        #G_Rc{
+            margin-left: 180px
+        }
+        #downloadButtonc{
+            margin-inline: 30px;
+        }
     </style>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     
@@ -22,7 +36,10 @@
     		<div class="card-body" style="text-align:center;">
                 <form method="get" action="./Template.xlsx">
                 <input type="file" id="excel_file" />
-                <button type="submit">Template Download</button>
+                <button id="temp" type="submit">Template</button>
+                <button id="G_Rc"onclick="gres()">Generate Response</button>
+                <button id="downloadButtonc" onclick="exportTableToExcel('myTable')">Download as Excel</button>
+                <button id="erasec"onclick="erase()">Clear</button>
                  </form>
     		</div>
     	</div>
@@ -38,8 +55,11 @@
 
 <script>
     document.getElementById("G_R").style.display = "none";
+    document.getElementById("G_Rc").style.display = "none";
     document.getElementById("erase").style.display = "none";
+    document.getElementById("erasec").style.display = "none";
     document.getElementById("downloadButton").style.display = "none";
+    document.getElementById("downloadButtonc").style.display = "none";
 const excel_file = document.getElementById('excel_file');
 excel_file.addEventListener('change', (event) => {
     if(!['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].includes(event.target.files[0].type))
@@ -108,8 +128,11 @@ excel_file.addEventListener('change', (event) => {
         table.rows[rowIndex].cells[colIndex_rem].innerHTML="<b>REMARKS </b>" 
     }
     document.getElementById("G_R").style.display = "block";
+    document.getElementById("G_Rc").style.display= "inline";
     document.getElementById("erase").style.display = "block";
+    document.getElementById("erasec").style.display = "inline";
     document.getElementById("downloadButton").style.display = "block";
+    document.getElementById("downloadButtonc").style.display = "inline";
 });
 </script>
 <script src="./script.js"></script>
@@ -120,7 +143,7 @@ excel_file.addEventListener('change', (event) => {
         lastCol = tbl.rows[0].cells.length - 1,   
         i, j;
         for (i = 0; i < tbl.rows.length; i++) {
-        for (j = lastCol; j > 12; j--) {
+        for (j = lastCol; j > 10; j--) {
             tbl.rows[i].deleteCell(j);
         }}
 var downloadLink;
@@ -128,10 +151,8 @@ var dataType = 'application/vnd.ms-excel';
 var tableSelect = document.getElementById(tableID);
 var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
 
-// Specify file name
 filename = filename?filename+'.xls':'excel_data.xls';
 
-// Create download link element
 downloadLink = document.createElement("a");
 
 document.body.appendChild(downloadLink);
@@ -142,13 +163,8 @@ if(navigator.msSaveOrOpenBlob){
     });
     navigator.msSaveOrOpenBlob( blob, filename);
 }else{
-    // Create a link to the file
     downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-
-    // Setting the file name
     downloadLink.download = filename;
-    
-    //triggering the function
     downloadLink.click();
 }
 }
