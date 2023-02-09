@@ -13,16 +13,15 @@
         .card-body{
             display: flex;
             align-items: center;
-            justify-content: space-between;
         }
         #temp{
             margin-left: -50px;
         }
         #G_Rc{
-            margin-left: 180px
+            margin-left: 200px
         }
         #downloadButtonc{
-            margin-inline: 30px;
+            margin-inline: 40px;
         }
     </style>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
@@ -34,13 +33,11 @@
     	<div class="card">
     		<div class="card-header"><b>Select Excel File</b></div>
     		<div class="card-body" style="text-align:center;">
-                <form method="get" action="./Template.xlsx">
                 <input type="file" id="excel_file" />
-                <button id="temp" type="submit">Template</button>
+                <button id="temp" type="submit" onclick="window.open('Template.xlsx')">Template</button>
                 <button id="G_Rc"onclick="gres()">Generate Response</button>
                 <button id="downloadButtonc" onclick="exportTableToExcel('myTable')">Download as Excel</button>
                 <button id="erasec"onclick="erase()">Clear</button>
-                 </form>
     		</div>
     	</div>
         <div id="excel_data" class="mt-5"></div>
