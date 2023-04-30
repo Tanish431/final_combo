@@ -7,6 +7,7 @@ function gres() {
         var row = table.rows[i]
         var thick_val = Number(row.cells[0].textContent)
         var width_val = Number(row.cells[1].textContent)
+        var p = width_val
         var length_val = Number(row.cells[2].textContent)
         let y = 0
         var NOP_val = Number(row.cells[3].textContent)
@@ -20,6 +21,7 @@ function gres() {
         if (width_val < 1800) {
             width_val = width_val * 2
             s.push("o")
+            p=width_val
         }
         if (width_val > 1200 && width_val < 2550) {
             width_val = width_val + 100
@@ -36,7 +38,14 @@ function gres() {
         }
         let max = 0
         max = Math.floor(38000 / length_val)
-        if (thick_val >= 5 && thick_val <= 13.9) {
+        if (thick_val >= 5 && thick_val <= 12) {
+            if (p>2600 && length_val*max>28000){
+                    while (length_val*max>28000){
+                        max--
+                    }
+                }
+            y = length_val * max + 1400
+        }else if(thick_val>12 && thick_val<=13.9){
             y = length_val * max + 1400
         } else if (thick_val >= 14 && thick_val <= 39.9) {
             y = length_val * max + 800
