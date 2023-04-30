@@ -55,7 +55,6 @@ function gres() {
             y = length_val * max + 200
         }
         let tot = thick_val * width_val * y * 7.85 * (10 ** -9) * 1.01
-        console.log(tot)
         if (tot > 19.2) {
             while (tot > 19.2) {
                 max--
@@ -154,7 +153,6 @@ function gres() {
                 a.push(min)
                 min_2 += min
             }
-            console.log(a)
             combo_space.innerHTML = a
         }
         if (c.length != 0) {
