@@ -1,11 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<title>Best Possible Combination</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>Best Possible Combination</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style type="text/css">
+        #excel_data {
+            margin-right: 60px !important;
+        }
         table.center{
             margin-left: auto;
             margin-right: auto
@@ -25,154 +28,45 @@
         }
     </style>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-    
 </head>
 <body>
     <div class="container">
-    	<h2 class="text-center mt-4 mb-4">Best Combo</h2>
-        <p>
-        INFO:
-            <ul>
+        <h1 class="text-center mt-4 mb-4">Best Combo</h1>
+        <h3>
+        <h3><b>INFO:</b></h3>            
+        <ul style="font-size: 17px;">
                 <li>All values will be in mm only.</li>
-                <li>Do not change the colums of the template.</li>
+                <li>Do not change the columns of the template.</li>
                 <li>Copy paste the desired table in the second row.</li>
                 <li>If in case it does not work, download the template again and retry.</li>
                 <li>The downloaded file may give a security warning, please overlook it.</li>
+                <p></p>
+                <dl>
+                    <dt>PlateMill SizewiseFeasibility:</dt>
+                    <li>For thickness 8mm to 10mm, width should be 2500mm and length can be 6000mm/9000mm/12000mm</li>
+                    <li>Thickness range: 10mm - 150mm</li>
+                    <li>Width range: 1250mm - 4400mm</li>
+                    <li>Length range: 6000mm - 18000mm </li>
+                </dl>
             </ul>
-        </p>
-    	<div class="card">
-    		<div class="card-header"><b>Select Excel File</b></div>
-    		<div class="card-body" style="text-align:center;">
+        <p></p>
+        <div class="card">
+            <div class="card-header"><b>Select Excel File</b></div>
+            <div class="card-body" style="text-align:center;">
                 <input type="file" id="excel_file" />
                 <button id="temp" type="submit" onclick="window.open('Template.xlsx')">Template</button>
-                <button id="G_Rc"onclick="gres()">Generate Response</button>
+                <button id="G_Rc" onclick="gres()">Generate Response</button>
                 <button id="downloadButtonc" onclick="exportTableToExcel('myTable')">Download as Excel</button>
-                <button id="erasec"onclick="erase()">Clear</button>
-    		</div>
-    	</div>
+                <button id="erasec" onclick="erase()">Clear</button>
+            </div>
+        </div>
         <div id="excel_data" class="mt-5"></div>
     </div>
-        <button id="G_R" style="display: block; margin: 0 auto;" onclick="gres()">Generate Response</button>
-        <p></p>
-        <button id="erase"type="button" onclick="erase()" style="display: block; margin: 0 auto;">Clear</button>
-        <p></p>
-        <button id="downloadButton" onclick="exportTableToExcel('myTable')" style="display: block; margin: 0 auto;">Download as Excel</button>
-    </body>
+    <button id="G_R" style="display: block; margin: 0 auto;" onclick="gres()">Generate Response</button>
+    <p></p>
+    <button id="erase" type="button" onclick="erase()" style="display: block; margin: 0 auto;">Clear</button>
+    <p></p>
+    <button id="downloadButton" onclick="exportTableToExcel('myTable')" style="display: block; margin: 0 auto;">Download as Excel</button>
+    <script src="script.js"></script>
+</body>
 </html>
-
-<script>
-    document.getElementById("G_R").style.display = "none";
-    document.getElementById("G_Rc").style.display = "none";
-    document.getElementById("erase").style.display = "none";
-    document.getElementById("erasec").style.display = "none";
-    document.getElementById("downloadButton").style.display = "none";
-    document.getElementById("downloadButtonc").style.display = "none";
-const excel_file = document.getElementById('excel_file');
-excel_file.addEventListener('change', (event) => {
-    if(!['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].includes(event.target.files[0].type))
-    {
-        document.getElementById('excel_data').innerHTML = '<div class="alert alert-danger">Only .xlsx or .xls file format are allowed</div>';
-        excel_file.value = '';
-        return false;
-    }
-    var reader = new FileReader();
-    reader.readAsArrayBuffer(event.target.files[0]);
-    reader.onload = function(event){
-        var data = new Uint8Array(reader.result);
-        var work_book = XLSX.read(data, {type:'array'});
-        var sheet_name = work_book.SheetNames;
-        var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], {header:1});
-        if(sheet_data.length > 0)
-        {
-            var table_output = '<table class="table table-striped table-bordered" id="myTable">';
-            for(var row = 0; row < sheet_data.length; row++)
-            {
-                table_output += '<tr style="text-align: center">';
-                for(var cell = 0; cell < sheet_data[row].length; cell++)
-                {
-                    if(row == 0)
-                    { 
-                        table_output += '<th style="text-align: center">'+sheet_data[row][cell]+'</th>';
-                    }
-                    else
-                    {
-                        table_output += '<td>'+sheet_data[row][cell]+'</td>';
-                    }
-                }
-                table_output += '</tr>';
-            }
-            table_output += '</table>';
-            document.getElementById('excel_data').innerHTML = table_output;
-        }
-        excel_file.value = '';
-        var table = document.getElementById("myTable");
-        var rowCount = table.rows.length;
-        var colCount = table.rows[0].cells.length;
-        for(var n=0; n<10;n++){
-        for (var i = 0; i < rowCount; i++) {
-            var newCell = table.rows[i].insertCell(colCount);
-        }}
-        var rowIndex = 0;
-        var colIndex_ppw = 4;
-        var colIndex_weight = 5;
-        var colIndex_ex = 6;
-        var colIndex_exw = 7;
-        var colIndex_to = 8;
-        var colIndex_tow = 9;
-        var colIndex_rem = 10;
-        var colIndex_mi = 11;
-        var colIndex_ma = 12;
-        var colIndex_co = 13; 
-        table.rows[rowIndex].cells[colIndex_ma].innerHTML="<b>MAX.</b>"
-        table.rows[rowIndex].cells[colIndex_mi].innerHTML="<b>MIN.</b>"
-        table.rows[rowIndex].cells[colIndex_co].innerHTML="<b>COMBO.</b>"
-        table.rows[rowIndex].cells[colIndex_ex].innerHTML="<b>EXTRA NOP</b>" 
-        table.rows[rowIndex].cells[colIndex_ppw].innerHTML="<b>PPW (MT)</b>"
-        table.rows[rowIndex].cells[colIndex_weight].innerHTML="<b>TOTAL WEIGHT (MT)</b>"
-        table.rows[rowIndex].cells[colIndex_exw].innerHTML="<b>EXTRA WEIGHT (MT)</b>"
-        table.rows[rowIndex].cells[colIndex_to].innerHTML="<b>SUGGESTED NOP</b>"
-        table.rows[rowIndex].cells[colIndex_tow].innerHTML="<b>SUGGESTED WEIGHT (MT)</b>"
-        table.rows[rowIndex].cells[colIndex_rem].innerHTML="<b>REMARKS </b>" 
-    }
-    document.getElementById("G_R").style.display = "block";
-    document.getElementById("G_Rc").style.display= "inline";
-    document.getElementById("erase").style.display = "block";
-    document.getElementById("erasec").style.display = "inline";
-    document.getElementById("downloadButton").style.display = "block";
-    document.getElementById("downloadButtonc").style.display = "inline";
-});
-</script>
-<script src="./script.js"></script>
-<script>
-    function exportTableToExcel(tableID, filename = ''){
-        
-    var tbl = document.getElementById('myTable'), 
-        lastCol = tbl.rows[0].cells.length - 1,   
-        i, j;
-        for (i = 0; i < tbl.rows.length; i++) {
-        for (j = lastCol; j > 10; j--) {
-            tbl.rows[i].deleteCell(j);
-        }}
-var downloadLink;
-var dataType = 'application/vnd.ms-excel';
-var tableSelect = document.getElementById(tableID);
-var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-
-filename = filename?filename+'.xls':'excel_data.xls';
-
-downloadLink = document.createElement("a");
-
-document.body.appendChild(downloadLink);
-
-if(navigator.msSaveOrOpenBlob){
-    var blob = new Blob(['\ufeff', tableHTML], {
-        type: dataType
-    });
-    navigator.msSaveOrOpenBlob( blob, filename);
-}else{
-    downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-    downloadLink.download = filename;
-    downloadLink.click();
-}
-}
-</script>
