@@ -1,1 +1,1 @@
-//hello
+//highlight the current highlight color and highlight the previous highlight color
