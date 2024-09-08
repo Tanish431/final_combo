@@ -1,4 +1,3 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 import { Octokit } from '@octokit/rest';  
 exports.handler = async function (event) {
   try {
