@@ -107,15 +107,15 @@ function gres() {
         ppw_space.innerHTML = ppw;
         
         if (thick_val>150){
-            wgt_space.innerHTML = "-";
-            extra_space.innerHTML = "-";
-            extraw_space.innerHTML = "-";
-            totalw_space.innerHTML = "-";
-            total_space.innerHTML = "-";
-            min_space.innerHTML = "-";
-            max_space.innerHTML = "-";
-            rem_space.innerHTML = "Not Possible";
-            combo_space.innerHTML ="-";
+            wgt_space.innerHTML = "0";
+            extra_space.innerHTML = "0";
+            extraw_space.innerHTML = "0";
+            totalw_space.innerHTML = "0";
+            total_space.innerHTML = "0";
+            min_space.innerHTML = "0";
+            max_space.innerHTML = "0";
+            rem_space.innerHTML = "<span style='color:red;font-weight:bold;'>Not Possible</span>";
+            combo_space.innerHTML ="0";
             i++
             continue
         }
@@ -173,10 +173,8 @@ function gres() {
                 tot = thick_val * width_val * y * 7.85 * (10 ** -9) * 1.01;
             }
         }
-        
+        //ppw calculation
         let min = max;
-        max_space.innerHTML = max;
-        min_space.innerHTML = min;
         while (tot > 6.9) {
             min--;
             if (thick_val >= 5 && thick_val <= 13.9) {
@@ -197,6 +195,8 @@ function gres() {
             min = 2 * min;
             max = 2 * max;
         }
+        max_space.innerHTML = max;
+        min_space.innerHTML = min;
         
         let min_2 = 0;
         let NOP_val_2 = 0;
@@ -248,77 +248,77 @@ function gres() {
             combo_space.innerHTML = a;
         }
         if (c.length != 0) {
-            extra_space.innerHTML = "-";
+            extra_space.innerHTML = "0";
             total_space.innerHTML = NOP_val;
-            extraw_space.innerHTML = "-";
+            extraw_space.innerHTML = "0";
             totalw_space.innerHTML = (NOP_val * ppw).toFixed(3);
         }
         if (s.length != 0 && c.length != 0) {
-            rem_space.innerHTML = "OK with Slit";
+            rem_space.innerHTML = "<span style='font-weight: bold;'>OK with Slit</span>";
         }
         if (s.length != 0 && c.length == 0) {
-            rem_space.innerHTML = "Ext. with Slit";
+            rem_space.innerHTML = "<span style='font-weight: bold;'>Ext. with Slit</span>";
         } else if (s.length == 0 && c.length != 0) {
             rem_space.innerHTML = "OK";
         }
         if (ppw >= 17.2) {
-                    wgt_space.innerHTML = "-";
-                    extra_space.innerHTML = "-";
-                    extraw_space.innerHTML = "-";
-                    totalw_space.innerHTML = "-";
-                    total_space.innerHTML = "-";
-                    min_space.innerHTML = "-";
-                    max_space.innerHTML = "-";
-                    rem_space.innerHTML = "Not Possible";
-                    combo_space.innerHTML ="-";;
+                    wgt_space.innerHTML = "0";
+                    extra_space.innerHTML = "0";
+                    extraw_space.innerHTML = "0";
+                    totalw_space.innerHTML = "0";
+                    total_space.innerHTML = "0";
+                    min_space.innerHTML = "0";
+                    max_space.innerHTML = "0";
+                    rem_space.innerHTML = "<span style='color:red;font-weight:bold;'>Not Possible</span>";
+                    combo_space.innerHTML ="0";;
         }
         
         if (thick_val<=10){
             if (thick_val>=8){
                 if (realwidthvalue !=2500 && (length_val!= 6000 || length_val!= 9000 || length_val!= 12000)) {
-                    wgt_space.innerHTML = "-";
-                    extra_space.innerHTML = "-";
-                    extraw_space.innerHTML = "-";
-                    totalw_space.innerHTML = "-";
-                    total_space.innerHTML = "-";
-                    min_space.innerHTML = "-";
-                    max_space.innerHTML = "-";
-                    rem_space.innerHTML = "Not Possible";
-                    combo_space.innerHTML ="-";
+                    wgt_space.innerHTML = "0";
+                    extra_space.innerHTML = "0";
+                    extraw_space.innerHTML = "0";
+                    totalw_space.innerHTML = "0";
+                    total_space.innerHTML = "0";
+                    min_space.innerHTML = "0";
+                    max_space.innerHTML = "0";
+                    rem_space.innerHTML = "<span style='color:red;font-weight:bold;'>Not Possible</span>";
+                    combo_space.innerHTML ="0";
                 }
             }
             else if (thick_val <8){
-                    wgt_space.innerHTML = "-";
-                    extra_space.innerHTML = "-";
-                    extraw_space.innerHTML = "-";
-                    totalw_space.innerHTML = "-";
-                    total_space.innerHTML = "-";
-                    min_space.innerHTML = "-";
-                    max_space.innerHTML = "-";
-                    rem_space.innerHTML = "Not Possible";
-                    combo_space.innerHTML ="-";
+                    wgt_space.innerHTML = "0";
+                    extra_space.innerHTML = "0";
+                    extraw_space.innerHTML = "0";
+                    totalw_space.innerHTML = "0";
+                    total_space.innerHTML = "0";
+                    min_space.innerHTML = "0";
+                    max_space.innerHTML = "0";
+                    rem_space.innerHTML = "<span style='color:red;font-weight:bold;'>Not Possible</span>";
+                    combo_space.innerHTML ="0";
         }}
         if (realwidthvalue <1250 || realwidthvalue >4400){
-                    wgt_space.innerHTML = "-";
-                    extra_space.innerHTML = "-";
-                    extraw_space.innerHTML = "-";
-                    totalw_space.innerHTML = "-";
-                    total_space.innerHTML = "-";
-                    min_space.innerHTML = "-";
-                    max_space.innerHTML = "-";
-                    rem_space.innerHTML = "Not Possible";
-                    combo_space.innerHTML ="-";
+                    wgt_space.innerHTML = "0";
+                    extra_space.innerHTML = "0";
+                    extraw_space.innerHTML = "0";
+                    totalw_space.innerHTML = "0";
+                    total_space.innerHTML = "0";
+                    min_space.innerHTML = "0";
+                    max_space.innerHTML = "0";
+                    rem_space.innerHTML = "<span style='color:red;font-weight:bold;'>Not Possible</span>";
+                    combo_space.innerHTML ="0";
         }
         if(length_val < 6000 || length_val > 18000){
-                    wgt_space.innerHTML = "-";
-                    extra_space.innerHTML = "-";
-                    extraw_space.innerHTML = "-";
-                    totalw_space.innerHTML = "-";
-                    total_space.innerHTML = "-";
-                    min_space.innerHTML = "-";
-                    max_space.innerHTML = "-";
-                    rem_space.innerHTML = "Not Possible";
-                    combo_space.innerHTML ="-";
+                    wgt_space.innerHTML = "0";
+                    extra_space.innerHTML = "0";
+                    extraw_space.innerHTML = "0";
+                    totalw_space.innerHTML = "0";
+                    total_space.innerHTML = "0";
+                    min_space.innerHTML = "0";
+                    max_space.innerHTML = "0";
+                    rem_space.innerHTML = "<span style='color:red;font-weight:bold;'>Not Possible</span>";
+                    combo_space.innerHTML ="0";
         }
         i++;
     }
