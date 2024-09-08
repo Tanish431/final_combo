@@ -3,16 +3,16 @@ exports.handler = async (event) => {
     const storage = await netlify.storage();  
     
     try {  
-     const fileUrl = await storage.put(file);  
-     return {  
-      statusCode: 201,  
-      body: JSON.stringify({ message: 'File uploaded successfully!' }),  
-     };  
+        const fileUrl = await storage.put(file);  
+    return {  
+        statusCode: 201,  
+        body: JSON.stringify({ message: 'File uploaded successfully!' }),  
+    };  
     } catch (error) {  
-     return {  
-      statusCode: 500,  
-      body: JSON.stringify({ message: 'Error uploading file: ' + error.message }),  
-     };  
+    return {  
+        statusCode: 500,  
+        body: JSON.stringify({ message: 'Error uploading file: ' + error.message }),  
+    };  
     }  
   };
   
