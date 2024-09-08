@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script>
+        function validateLogin(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username === '123' && password === '123') {
+                window.location.href = 'master.html';
+            } else {
+                alert('Invalid username or password');
+            }
+        }
+    </script>
+</head>
+<body style="background-color: white; text-align: center; font-family: Arial, sans-serif; padding-top: 50px;">
+
+    <h1 style="font-size: 36px;">Login Page</h1>
+    
+    <div>
+        <button onclick="location.href='index.html';" style="margin: 10px; padding: 15px 30px; font-size: 18px;">Enter as Guest</button>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <h2 style="font-size: 28px;">Admin Login</h2>
+        <form onsubmit="validateLogin(event)">
+            <label for="username" style="font-size: 18px;">Username:</label><br>
+            <input type="text" id="username" name="username" required style="width: 300px; padding: 10px; font-size: 20px;"><br><br>
+            <label for="password" style="font-size: 18px;">Password:</label><br>
+            <input type="password" id="password" name="password" required style="width: 300px; padding: 10px; font-size: 20px;"><br><br>
+            <input type="submit" value="Login" style="padding: 15px 30px; font-size: 18px;">
+        </form>
+    </div>
+
+</body>
+</html>
