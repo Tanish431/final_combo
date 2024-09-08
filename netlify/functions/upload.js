@@ -5,7 +5,6 @@ exports.handler = async function (event) {
     const octokit = new Octokit({
       auth: process.env.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,
     });
-    console.log(form)
     const fileContent = Buffer.from(form).toString('base64');
     const response = await octokit.repos.createOrUpdateFileContents({
       owner: 'Tanish431',  // GitHub username
