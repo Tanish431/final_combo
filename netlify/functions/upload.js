@@ -1,5 +1,5 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-const { Octokit } = require('@octokit/rest');
+import { Octokit } from '@octokit/rest';  
 exports.handler = async function (event) {
   try {
     const form = event.body;
