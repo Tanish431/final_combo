@@ -1,72 +1,42 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>MOQ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style type="text/css">
-        #excel_data {
-            margin-right: 60px !important;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script>
+        function validateLogin(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username === '123' && password === '123') {
+                window.location.href = 'master.html';
+            } else {
+                alert('Invalid username or password');
+            }
         }
-        table.center{
-            margin-left: auto;
-            margin-right: auto
-        }
-        .card-body{
-            display: flex;
-            align-items: center;
-        }
-        #temp{
-            margin-left: -50px;
-        }
-        #G_Rc{
-            margin-left: 200px
-        }
-        #downloadButtonc{
-            margin-inline: 40px;
-        }
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    </script>
 </head>
-<body>
-    <div class="container">
-        <h1 class="text-center mt-4 mb-4">Minimum Order Quantity</h1>
-        <h3>
-        <h3><b>INFO:</b></h3>            
-        <ul style="font-size: 17px;">
-                <li>All values will be in mm only.</li>
-                <li>Do not change the columns of the template.</li>
-                <li>Copy paste the desired table in the second row.</li>
-                <li>If in case it does not work, download the template again and retry.</li>
-                <li>The downloaded file may give a security warning, please overlook it.</li>
-                <p></p>
-                <dl>
-                    <dt>PlateMill SizewiseFeasibility:</dt>
-                    <li>For thickness 8mm to 10mm, width should be 2500mm and length can be 6000mm/9000mm/12000mm</li>
-                    <li>Thickness range: 10mm - 150mm</li>
-                    <li>Width range: 1250mm - 4400mm</li>
-                    <li>Length range: 6000mm - 18000mm </li>
-                </dl>
-            </ul>
-        <p></p>
-        <div class="card">
-            <div class="card-header"><b>Select Excel File</b></div>
-            <div class="card-body" style="text-align:center;">
-                <input type="file" id="excel_file" />
-                <button id="temp" type="submit" onclick="window.open('Template.xlsx')">Template</button>
-                <button id="G_Rc" onclick="gres()">Generate Response</button>
-                <button id="downloadButtonc" onclick="exportTableToExcel('myTable')">Download as Excel</button>
-                <button id="erasec" onclick="erase()">Clear</button>
-            </div>
-        </div>
-        <div id="excel_data" class="mt-5"></div>
+<body style="background-color: white; text-align: center; font-family: Arial, sans-serif; padding-top: 50px;">
+
+    <h1 style="font-size: 36px;">Login Page</h1>
+    
+    <div>
+        <button onclick="location.href='work.html';" style="margin: 10px; padding: 15px 30px; font-size: 18px;">Enter as Guest</button>
     </div>
-    <button id="G_R" style="display: block; margin: 0 auto;" onclick="gres()">Generate Response</button>
-    <p></p>
-    <button id="erase" type="button" onclick="erase()" style="display: block; margin: 0 auto;">Clear</button>
-    <p></p>
-    <button id="downloadButton" onclick="exportTableToExcel('myTable')" style="display: block; margin: 0 auto;">Download as Excel</button>
-    <script src="script.js"></script>
+    
+    <div style="margin-top: 20px;">
+        <h2 style="font-size: 28px;">Admin Login</h2>
+        <form onsubmit="validateLogin(event)">
+            <label for="username" style="font-size: 18px;">Username:</label><br>
+            <input type="text" id="username" name="username" required style="width: 300px; padding: 10px; font-size: 20px;"><br><br>
+            <label for="password" style="font-size: 18px;">Password:</label><br>
+            <input type="password" id="password" name="password" required style="width: 300px; padding: 10px; font-size: 20px;"><br><br>
+            <input type="submit" value="Login" style="padding: 15px 30px; font-size: 18px;">
+        </form>
+    </div>
+
 </body>
 </html>
