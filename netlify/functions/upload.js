@@ -1,34 +1,71 @@
+import { IncomingForm } from 'formidable';
+import fs from 'fs';
 import { Octokit } from '@octokit/rest';
 
-export async function handler(event) {
-  const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN,  // Ensure GITHUB_TOKEN is set as an environment variable
-  });
+export const handler = async (event) => {
+  return new Promise((resolve, reject) => {
+    const form = new IncomingForm();
 
-  const content = Buffer.from(event.body).toString('base64');  // Convert file content to base64
+    form.parse(event, (err, fields, files) => {
+      if (err) {
+        reject({
+          statusCode: 500,
+          body: JSON.stringify({ message: 'File parsing failed', error: err.message }),
+        });
+        return;
+      }
 
-  try {
-    const response = await octokit.repos.createOrUpdateFileContents({
-      owner: 'your-username',
-      repo: 'your-repo',
-      path: 'path/to/file.xlsx',
-      message: 'Update grade table',
-      content: content,
-      committer: {
-        name: 'Netlify Admin',
-        email: 'admin@example.com',
-      },
+      // Get the uploaded file (excel file in this case)
+      const uploadedFile = files.gradeFile;
+
+      if (uploadedFile) {
+        // Read the file content
+        const fileContent = fs.readFileSync(uploadedFile.path);
+
+        // Convert file content to base64
+        const contentBase64 = Buffer.from(fileContent).toString('base64');
+
+        // Upload to GitHub
+        const octokit = new Octokit({
+          auth: process.env.GITHUB_TOKEN, // Ensure you have set the GitHub token as an environment variable
+        });
+
+        const fileName = uploadedFile.name; // This will be the name of the file in your GitHub repo
+
+        octokit.repos.createOrUpdateFileContents({
+          owner: 'your-github-username',
+          repo: 'your-repo-name',
+          path: `path/to/upload/${fileName}`,  // Define the path where you want to save the file
+          message: 'Upload Excel file from Netlify function',
+          content: contentBase64,  // File content in base64
+          committer: {
+            name: 'Your Name',
+            email: 'your-email@example.com',
+          },
+          author: {
+            name: 'Your Name',
+            email: 'your-email@example.com',
+          },
+        })
+        .then(() => {
+          resolve({
+            statusCode: 200,
+            body: JSON.stringify({ message: 'File uploaded to GitHub successfully!' }),
+          });
+        })
+        .catch((error) => {
+          reject({
+            statusCode: 500,
+            body: JSON.stringify({ message: 'GitHub upload failed', error: error.message }),
+          });
+        });
+      } else {
+        reject({
+          statusCode: 400,
+          body: JSON.stringify({ message: 'No file uploaded' }),
+        });
+      }
     });
+  });
+};
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'File uploaded successfully!' }),
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'Error uploading file', error: error.message }),
-    };
-  }
-}
