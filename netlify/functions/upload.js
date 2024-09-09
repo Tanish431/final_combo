@@ -1,21 +1,22 @@
-import { Octokit } from '@octokit/rest';  
-exports.handler = async function (event) {
-  console.log('Event Body:', event.body);
+import { Octokit } from '@octokit/rest';
+
+export async function handler(event) {
+  const octokit = new Octokit({
+    auth: process.env.GITHUB_TOKEN,  // Ensure GITHUB_TOKEN is set as an environment variable
+  });
+
+  const content = Buffer.from(event.body).toString('base64');  // Convert file content to base64
+
   try {
-    const form = event.body;
-    const octokit = new Octokit({
-      auth: process.env.GITHUB_TOKEN,
-    });
-    const fileContent = Buffer.from(form).toString('base64');
     const response = await octokit.repos.createOrUpdateFileContents({
-      owner: 'Tanish431',  // GitHub username
-      repo: 'final_combo',  // GitHub repo name
-      path: 'path/to/grade-table.xlsx', // File path in your GitHub repo
-      message: 'Uploading new grade table',
-      content: fileContent,
+      owner: 'your-username',
+      repo: 'your-repo',
+      path: 'path/to/file.xlsx',
+      message: 'Update grade table',
+      content: content,
       committer: {
-        name: 'Tanish Soni',
-        email: 'tanishsoni431@gmail.com',
+        name: 'Netlify Admin',
+        email: 'admin@example.com',
       },
     });
 
@@ -24,9 +25,10 @@ exports.handler = async function (event) {
       body: JSON.stringify({ message: 'File uploaded successfully!' }),
     };
   } catch (error) {
+    console.error(error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'File upload failed!', error: error.message }),
+      body: JSON.stringify({ message: 'Error uploading file', error: error.message }),
     };
   }
-};
+}
