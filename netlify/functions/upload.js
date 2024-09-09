@@ -1,5 +1,6 @@
 import { Octokit } from '@octokit/rest';  
 exports.handler = async function (event) {
+  console.log('Event Body:', event.body);
   try {
     const form = event.body;
     const octokit = new Octokit({
