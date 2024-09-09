@@ -14,30 +14,24 @@ export const handler = async (event) => {
         });
         return;
       }
-
-      // Get the uploaded file (excel file in this case)
       const uploadedFile = files.gradeFile;
 
       if (uploadedFile) {
-        // Read the file content
         const fileContent = fs.readFileSync(uploadedFile.path);
-
-        // Convert file content to base64
         const contentBase64 = Buffer.from(fileContent).toString('base64');
 
-        // Upload to GitHub
         const octokit = new Octokit({
-          auth: process.env.GITHUB_TOKEN, // Ensure you have set the GitHub token as an environment variable
+          auth: process.env.GITHUB_TOKEN,
         });
 
-        const fileName = uploadedFile.name; // This will be the name of the file in your GitHub repo
+        const fileName = uploadedFile.name; 
 
         octokit.repos.createOrUpdateFileContents({
           owner: 'Tanish431',
           repo: 'final_combo',
-          path: `path/to/upload/${fileName}`,  // Define the path where you want to save the file
+          path: `path/to/upload/${fileName}`, 
           message: 'Upload Excel file from Netlify function',
-          content: contentBase64,  // File content in base64
+          content: contentBase64,  
           committer: {
             name: 'Tanish Soni',
             email: 'tanishsoni431@gmail.com',

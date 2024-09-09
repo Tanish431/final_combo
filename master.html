@@ -16,24 +16,18 @@
 
   <script>
     document.getElementById('uploadForm').addEventListener('submit', async (e) => {
-      e.preventDefault(); // Prevent form from submitting the traditional way
+      e.preventDefault();
       
       const file = document.getElementById('gradeFile').files[0];
-      if (!file) {
-        alert('Please select a file before uploading.');
-        return;
-      }
-
       const formData = new FormData();
-      formData.append('gradeFile', file); // Append the selected file to the FormData object
+      formData.append('gradeFile', file);
 
       try {
         const response = await fetch('/.netlify/functions/upload', {
           method: 'POST',
-          body: formData, // Send the form data with the file
+          body: formData, 
         });
-
-        const result = await response.json(); // Parse the JSON response from the server
+        const result = await response.json();
         if (response.ok) {
           alert('File uploaded successfully: ' + result.message);
         } else {
