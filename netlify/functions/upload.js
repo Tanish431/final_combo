@@ -3,7 +3,7 @@ exports.handler = async function (event) {
   try {
     const form = event.body;
     const octokit = new Octokit({
-      auth: process.env.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,
+      auth: process.env.GITHUB_TOKEN,
     });
     const fileContent = Buffer.from(form).toString('base64');
     const response = await octokit.repos.createOrUpdateFileContents({
