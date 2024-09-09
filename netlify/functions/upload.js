@@ -33,18 +33,18 @@ export const handler = async (event) => {
         const fileName = uploadedFile.name; // This will be the name of the file in your GitHub repo
 
         octokit.repos.createOrUpdateFileContents({
-          owner: 'your-github-username',
-          repo: 'your-repo-name',
+          owner: 'Tanish431',
+          repo: 'final_combo',
           path: `path/to/upload/${fileName}`,  // Define the path where you want to save the file
           message: 'Upload Excel file from Netlify function',
           content: contentBase64,  // File content in base64
           committer: {
-            name: 'Your Name',
-            email: 'your-email@example.com',
+            name: 'Tanish Soni',
+            email: 'tanishsoni431@gmail.com',
           },
           author: {
-            name: 'Your Name',
-            email: 'your-email@example.com',
+            name: 'Tanish Soni',
+            email: 'tanishsoni431@gmail.com',
           },
         })
         .then(() => {
