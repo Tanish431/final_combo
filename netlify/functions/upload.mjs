@@ -1,18 +1,14 @@
-import axios from 'axios';
+const axios = require('axios');
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   try {
     // Get the file data from the event
     const fileData = event.body;
 
     // Make a request to the GitHub API to create a new file
-    const response = await axios.put('https://api.github.com/repos/Tanish431/final_combo/contents/', {
+    const response = await axios.put('https://api.github.com/repos/{owner}/{repo}/contents/{path}', {
       message: 'Upload file',
       content: fileData,
-      // Add your GitHub access token for authentication
-      headers: {
-        Authorization: 'Bearer '+ process.env.GITHUB_TOKEN,
-      },
     });
 
     // Return a success response
