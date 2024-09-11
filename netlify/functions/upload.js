@@ -6,7 +6,7 @@ exports.handler = async (event) => {
     const fileData = event.body;
 
     // Make a request to the GitHub API to create a new file
-    const response = await axios.put('https://api.github.com/repos/{owner}/{repo}/contents/{path}', {
+    const response = await axios.put('https://api.github.com/repos/Tanish431/final_combo/contents/', {
       message: 'Upload file',
       content: fileData,
     });
