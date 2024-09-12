@@ -1,7 +1,6 @@
-import fetch from 'node-fetch';
+const axios = require('axios');
 
-
-export async function handler(event) {
+exports.handler = async (event) => {
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
@@ -30,20 +29,13 @@ export async function handler(event) {
             content: fileContent
         };
 
-        const response = await fetch(url, {
-            method: 'PUT',
+        const response = await axios.put(url, payload, {
             headers: {
                 'Authorization': `token ${GITHUB_TOKEN}`,
                 'Accept': 'application/vnd.github.v3+json',
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
+            }
         });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Error uploading file');
-        }
 
         return {
             statusCode: 200,
@@ -55,4 +47,4 @@ export async function handler(event) {
             body: JSON.stringify({ message: error.message }),
         };
     }
-}
+};
