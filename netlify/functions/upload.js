@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 
-exports.handler = async (event) => {
+export async function handler(event) {
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
@@ -9,27 +9,27 @@ exports.handler = async (event) => {
         };
     }
 
-    const { fileName, fileContent } = JSON.parse(event.body);
-
-    if (!fileName || !fileContent) {
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ message: 'Missing fileName or fileContent' }),
-        };
-    }
-
-    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-    const REPO_OWNER = 'Tanish431';
-    const REPO_NAME = 'final_combo';
-    const COMMIT_MESSAGE = 'Upload file';
-
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${fileName}`;
-    const payload = {
-        message: COMMIT_MESSAGE,
-        content: fileContent
-    };
-
     try {
+        const { fileName, fileContent } = JSON.parse(event.body);
+
+        if (!fileName || !fileContent) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ message: 'Missing fileName or fileContent' }),
+            };
+        }
+
+        const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+        const REPO_OWNER = 'YOUR_GITHUB_USERNAME';
+        const REPO_NAME = 'YOUR_REPO_NAME';
+        const COMMIT_MESSAGE = 'Upload file via Netlify Function';
+
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${fileName}`;
+        const payload = {
+            message: COMMIT_MESSAGE,
+            content: fileContent
+        };
+
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
@@ -55,4 +55,4 @@ exports.handler = async (event) => {
             body: JSON.stringify({ message: error.message }),
         };
     }
-};
+}
