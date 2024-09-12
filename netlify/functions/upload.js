@@ -1,26 +1,57 @@
-const axios = require('axios');
+const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
-  try {
-    // Get the file data from the event
-    const fileData = event.body;
+    if (event.httpMethod !== 'POST') {
+        return {
+            statusCode: 405,
+            body: JSON.stringify({ message: 'Method not allowed' }),
+        };
+    }
 
-    // Make a request to the GitHub API to create a new file
-    const response = await axios.put('https://api.github.com/repos/Tanish431/final_combo/contents/', {
-      message: 'Upload file',
-      content: fileData,
-    });
+    const { fileName, fileContent } = JSON.parse(event.body);
 
-    // Return a success response
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'File uploaded successfully', data: response.data }),
+    if (!fileName || !fileContent) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ message: 'Missing fileName or fileContent' }),
+        };
+    }
+
+    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+    const REPO_OWNER = 'Tanish431';
+    const REPO_NAME = 'final_combo';
+    const COMMIT_MESSAGE = 'Upload file';
+
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${fileName}`;
+    const payload = {
+        message: COMMIT_MESSAGE,
+        content: fileContent
     };
-  } catch (error) {
-    console.error(error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'File upload failed', error: error.message }),
-    };
-  }
+
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error uploading file');
+        }
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: 'File uploaded successfully' }),
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: error.message }),
+        };
+    }
 };
