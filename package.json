@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MOQ",
   "main": "script.js",
+  "type": "module",
   "scripts": {
     "test": "jest"
   },
