@@ -18,37 +18,40 @@
     document.getElementById('uploadForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const file = document.getElementById('gradeFile').files[0];
-      const formData = new FormData();
-      formData.append('gradeFile', file);
+     const file = document.getElementById('gradeFile').files[0];
+      if (!file) {
+        alert('Please select a file.');
+        return;
+      }
 
-      try {
-      // Get the file data from the event
-      const fileData = event.body;
-        console.log(fileData)
+      const reader = new FileReader();
+      reader.onload = async function(event) {
+        const fileContent = btoa(event.target.result); // Convert file content to base64
+        const fileName = file.name; // Extract file name
+        
+        // Prepare the payload for the Netlify function
+        const payload = {
+          fileName: `path/in/repo/${fileName}`, // Path within the repo
+          fileContent: fileContent
+        };
 
-      // Make a request to the GitHub API to create a new file
-      const response = await axios.put('https://api.github.com/repos/Tanish431/final_combo/contents/', {
-        message: 'Upload file',
-        content: fileData,
-      });
+        try {
+          // Make a request to the Netlify function
+          const response = await axios.post('/.netlify/functions/upload', payload);
 
-        console.log({
-        statusCode: 200,
-        body: JSON.stringify({ message: 'File uploaded successfully', data: response.data }),
-      })
-      // Return a success response
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: 'File uploaded successfully', data: response.data }),
+          if (response.status === 200) {
+            alert('File uploaded successfully!');
+            console.log(response.data);
+          } else {
+            throw new Error('Failed to upload file');
+          }
+        } catch (error) {
+          alert('Error uploading file: ' + error.message);
+          console.error(error);
+        }
       };
-    } catch (error) {
-      console.error(error);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ message: 'File upload failed', error: error.message }),
-      };
-    };
+
+      reader.readAsBinaryString(file);
   });
   </script>
 </body>
