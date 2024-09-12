@@ -22,10 +22,10 @@
       const formData = new FormData();
       formData.append('gradeFile', file);
 
-      exports.handler = async (event) => {
       try {
       // Get the file data from the event
       const fileData = event.body;
+        console.log(fileData)
 
       // Make a request to the GitHub API to create a new file
       const response = await axios.put('https://api.github.com/repos/Tanish431/final_combo/contents/', {
@@ -33,6 +33,10 @@
         content: fileData,
       });
 
+        console.log({
+        statusCode: 200,
+        body: JSON.stringify({ message: 'File uploaded successfully', data: response.data }),
+      })
       // Return a success response
       return {
         statusCode: 200,
@@ -44,7 +48,7 @@
         statusCode: 500,
         body: JSON.stringify({ message: 'File upload failed', error: error.message }),
       };
-    }};
+    };
   });
   </script>
 </body>
