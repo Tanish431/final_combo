@@ -19,9 +19,9 @@ exports.handler = async (event) => {
         }
 
         const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-        const REPO_OWNER = 'YOUR_GITHUB_USERNAME';
-        const REPO_NAME = 'YOUR_REPO_NAME';
-        const COMMIT_MESSAGE = 'Upload file via Netlify Function';
+        const REPO_OWNER = 'Tanish431';
+        const REPO_NAME = 'final_combo';
+        const COMMIT_MESSAGE = 'Upload file";
 
         const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${fileName}`;
         const payload = {
