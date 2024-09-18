@@ -1,6 +1,6 @@
-const fetch = require("node-fetch");
+import fetch from 'node-fetch';
 
-exports.handler = async function (event, context) {
+export async function handler(event, context)  {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN; 
   const apiUrl = "https://api.github.com/repos/Tanish431/final_combo/contents/master.txt";
 
