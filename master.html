@@ -14,6 +14,7 @@
     <button type="submit">Upload</button>
   </form>
   <script>
+    console.log("GitHub Token:", GITHUB_TOKEN);
    fetch('/.netlify/functions/upload', {
         method: 'POST'
       })
