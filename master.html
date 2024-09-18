@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js" integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <title>Upload Excel File</title>
 </head>
 <body>
@@ -14,12 +15,39 @@
     <button type="submit">Upload</button>
   </form>
   <script>
-   fetch('/.netlify/functions/updateFile', {
-        method: 'POST'
-      })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const file = document.getElementById('gradeFile').files[0];
+      const formData = new FormData();
+      formData.append('gradeFile', file);
+
+      const axios = require('axios');
+
+      exports.handler = async (event) => {
+      try {
+      // Get the file data from the event
+      const fileData = event.body;
+
+      // Make a request to the GitHub API to create a new file
+      const response = await axios.put('https://api.github.com/repos/Tanish431/final_combo/contents/', {
+        message: 'Upload file',
+        content: fileData,
+      });
+
+      // Return a success response
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: 'File uploaded successfully', data: response.data }),
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ message: 'File upload failed', error: error.message }),
+      };
+    }};
+  });
   </script>
 </body>
 </html>
