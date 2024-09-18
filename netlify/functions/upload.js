@@ -1,26 +1,44 @@
-const axios = require('axios');
+const fetch = require("node-fetch");
 
-exports.handler = async (event) => {
+exports.handler = async function (event, context) {
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN; 
+  const apiUrl = "https://api.github.com/repos/Tanish431/final_combo/contents/master.txt";
+
+  const body = {
+    message: "my commit message",
+    committer: {
+      name: "Tanish Soni",
+      email: "tanishsoni431@gmail.com"
+    },
+    content: "bXkgbmV3IGZpbGUgY29udGVudHM="
+  };
+
   try {
-    // Get the file data from the event
-    const fileData = event.body;
-
-    // Make a request to the GitHub API to create a new file
-    const response = await axios.put('https://api.github.com/repos/Tanish431/final_combo/contents/', {
-      message: 'Upload file',
-      content: fileData,
+    const response = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
     });
 
-    // Return a success response
+    if (!response.ok) {
+      return {
+        statusCode: response.status,
+        body: JSON.stringify({ error: "Error updating file in GitHub" }),
+      };
+    }
+
+    const data = await response.json();
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'File uploaded successfully', data: response.data }),
+      body: JSON.stringify(data),
     };
   } catch (error) {
-    console.error(error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'File upload failed', error: error.message }),
+      body: JSON.stringify({ error: "Something went wrong" }),
     };
   }
 };
