@@ -13,14 +13,49 @@
     <input type="file" id="gradeFile" name="gradeFile" accept=".xlsx" required />
     <button type="submit">Upload</button>
   </form>
+
   <script>
-    console.log("GitHub Token:", GITHUB_TOKEN);
-   fetch('/.netlify/functions/upload', {
-        method: 'POST'
-      })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
+    document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+      event.preventDefault(); 
+
+      const gradeFile = document.getElementById('gradeFile').files[0];
+
+      if (!gradeFile) {
+        console.error('No file selected');
+        return;
+      }
+
+      // Convert the file to Base64
+      const reader = new FileReader();
+      reader.readAsDataURL(gradeFile);
+      reader.onload = async function () {
+        const base64Content = reader.result.split(',')[1]; 
+        const payload = {
+          fileName: gradeFile.name,
+          content: base64Content 
+        };
+
+        // Send the file to Netlify serverless function
+        try {
+          const response = await fetch('/.netlify/functions/upload', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await response.json();
+          console.log('Upload successful:', data);
+        } catch (error) {
+          console.error('Error uploading file:', error);
+        }
+      };
+
+      reader.onerror = function (error) {
+        console.error('Error reading file:', error);
+      };
+    });
   </script>
 </body>
 </html>

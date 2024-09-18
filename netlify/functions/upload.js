@@ -1,20 +1,20 @@
 import fetch from 'node-fetch';
 
-export async function handler(event, context)  {
-  const GITHUB_TOKEN = process.env.GITHUB_TOKEN; 
-  const apiUrl = "https://api.github.com/repos/Tanish431/final_combo/contents/master.txt";
-
+export async function handler(event) {
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+  const apiUrl = "https://api.github.com/repos/Tanish431/final_combo/contents/";
+  const { fileName, content } = JSON.parse(event.body);
   const body = {
-    message: "my commit message",
+    message: `Upload ${fileName} to GitHub`,
     committer: {
       name: "Tanish Soni",
       email: "tanishsoni431@gmail.com"
     },
-    content: "bXkgbmV3IGZpbGUgY29udGVudHM="
+    content: content 
   };
 
   try {
-    const response = await fetch(apiUrl, {
+    const response = await fetch(`${apiUrl}${fileName}`, {
       method: "PUT",
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
@@ -26,7 +26,7 @@ export async function handler(event, context)  {
     if (!response.ok) {
       return {
         statusCode: response.status,
-        body: JSON.stringify({ error: "Error updating file in GitHub" }),
+        body: JSON.stringify({ error: "Error uploading file to GitHub" }),
       };
     }
 
@@ -41,4 +41,4 @@ export async function handler(event, context)  {
       body: JSON.stringify({ error: "Something went wrong" }),
     };
   }
-};
+}
